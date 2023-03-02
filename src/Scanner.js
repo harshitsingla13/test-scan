@@ -193,27 +193,13 @@ const Scanner = () => {
     } else if (document.visibilityState === "hidden") {
       console.log("second", html5QrCode);
       html5QrCode
-        .clear()
-        .then((_) => {
-          // the UI should be cleared here
+        .stop()
+        .then((res) => {
+          html5QrCode.clear();
         })
-        .catch((error) => {
-          // Could not stop scanning for reasons specified in `error`.
-          // This conditions should ideally not happen.
+        .catch((err) => {
+          console.log(err.message);
         });
-      try {
-        html5QrCode
-          .stop()
-          .then((res) => {
-            html5QrCode.clear();
-          })
-          .catch((err) => {
-            console.log(err.message);
-          });
-      } catch (err) {
-        //dispatch Master code for error
-        console.log(err); //remove this console.log after dispatching
-      }
     }
   });
 
