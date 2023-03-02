@@ -191,7 +191,16 @@ const Scanner = () => {
       console.log("hi");
       startScan(cameraId);
     } else if (document.visibilityState === "hidden") {
-      console.log("second");
+      console.log("second", html5QrCode);
+      html5QrCode
+        .clear()
+        .then((_) => {
+          // the UI should be cleared here
+        })
+        .catch((error) => {
+          // Could not stop scanning for reasons specified in `error`.
+          // This conditions should ideally not happen.
+        });
       try {
         html5QrCode
           .stop()
