@@ -206,7 +206,7 @@ const Scanner = () => {
             });
         }
       },
-      false
+      true
     );
   }, []);
 
