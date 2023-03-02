@@ -185,6 +185,28 @@ const Scanner = () => {
     },
   ];
 
+  const getCameraId = () => {
+    Html5Qrcode.getCameras()
+      .then((devices) => {
+        if (devices && devices.length) {
+          console.log("devices", devices);
+          let devicesCpy = [...devices];
+          console.log("devicesCpy", devicesCpy);
+          let deviceCameraId = devicesCpy.pop().id;
+          console.log("devicesCpy", devices[1].id);
+          cameraIdValue(devices[1].id);
+        }
+      })
+      .catch((err) => {
+        //dispatch master code for error
+        console.log(err); //remove this console.log after dispatching
+      });
+  };
+
+  const cameraIdValue = (deviceCameraId) => {
+    setCameraId(deviceCameraId);
+  };
+
   useEffect(() => {
     document.addEventListener(
       "visibilitychange",
@@ -217,28 +239,6 @@ const Scanner = () => {
   //     console.log("first");
   //     startScan(cameraId);
   //   });
-
-  const cameraIdValue = (deviceCameraId) => {
-    setCameraId(deviceCameraId);
-  };
-
-  const getCameraId = () => {
-    Html5Qrcode.getCameras()
-      .then((devices) => {
-        if (devices && devices.length) {
-          console.log("devices", devices);
-          let devicesCpy = [...devices];
-          console.log("devicesCpy", devicesCpy);
-          let deviceCameraId = devicesCpy.pop().id;
-          console.log("devicesCpy", devices[1].id);
-          cameraIdValue(devices[1].id);
-        }
-      })
-      .catch((err) => {
-        //dispatch master code for error
-        console.log(err); //remove this console.log after dispatching
-      });
-  };
 
   React.useEffect(() => {
     getCameraId();
