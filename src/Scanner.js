@@ -190,23 +190,26 @@ const Scanner = () => {
     if (document.visibilityState === "visible") {
       console.log("second");
       startScan(cameraId);
+    } else if (document.visibilityState === "hidden") {
+      console.log("second");
+      stopScan();
     }
   });
 
   //Scanning will be stopped if app loses its focus - have to refactor this code ||Rishav
-  window.addEventListener(
-    "blur",
-    function (e) {
-      // just lost focus
-      stopScan();
-    },
-    false
-  );
+  //   window.addEventListener(
+  //     "blur",
+  //     function (e) {
+  //       // just lost focus
+  //       stopScan();
+  //     },
+  //     false
+  //   );
 
-  document.addEventListener("onfocus", function (ev) {
-    console.log("first");
-    startScan(cameraId);
-  });
+  //   document.addEventListener("onfocus", function (ev) {
+  //     console.log("first");
+  //     startScan(cameraId);
+  //   });
 
   const cameraIdValue = (deviceCameraId) => {
     setCameraId(deviceCameraId);
