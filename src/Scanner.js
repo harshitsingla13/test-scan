@@ -1,7 +1,7 @@
 import React from "react";
 import { Html5Qrcode } from "html5-qrcode";
 
-let html5QrCode;
+var html5QrCode;
 const brConfig = {
   fps: 10,
   qrbox: { width: 300, height: 200 },
@@ -195,7 +195,7 @@ const Scanner = () => {
       html5QrCode
         .stop()
         .then((res) => {
-          html5QrCode.clear();
+          //   html5QrCode.clear();
         })
         .catch((err) => {
           console.log(err.message);
