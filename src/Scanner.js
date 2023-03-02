@@ -185,6 +185,14 @@ const Scanner = () => {
     },
   ];
 
+  document.addEventListener("visibilitychange", function (ev) {
+    console.log(`Tab state : ${document.visibilityState}`);
+    if (document.visibilityState === "visible") {
+      console.log("second");
+      startScan(cameraId);
+    }
+  });
+
   //Scanning will be stopped if app loses its focus - have to refactor this code ||Rishav
   window.addEventListener(
     "blur",
@@ -194,6 +202,12 @@ const Scanner = () => {
     },
     false
   );
+
+  document.addEventListener("onfocus", function (ev) {
+    console.log("first");
+    startScan(cameraId);
+  });
+
   const cameraIdValue = (deviceCameraId) => {
     setCameraId(deviceCameraId);
   };
