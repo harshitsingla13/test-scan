@@ -225,9 +225,11 @@ const Scanner = () => {
     Html5Qrcode.getCameras()
       .then((devices) => {
         if (devices && devices.length) {
+          console.log("devices", devices);
           let devicesCpy = [...devices];
-          console.log(devicesCpy);
+          console.log("devicesCpy", devicesCpy);
           let deviceCameraId = devicesCpy.pop().id;
+          console.log("deviceCameraId", deviceCameraId);
           cameraIdValue(deviceCameraId);
         }
       })
