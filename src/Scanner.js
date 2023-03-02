@@ -188,11 +188,23 @@ const Scanner = () => {
   document.addEventListener("visibilitychange", function (ev) {
     console.log(`Tab state : ${document.visibilityState}`);
     if (document.visibilityState === "visible") {
-      console.log("second");
+      console.log("hi");
       startScan(cameraId);
     } else if (document.visibilityState === "hidden") {
       console.log("second");
-      stopScan();
+      try {
+        html5QrCode
+          .stop()
+          .then((res) => {
+            html5QrCode.clear();
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+      } catch (err) {
+        //dispatch Master code for error
+        console.log(err); //remove this console.log after dispatching
+      }
     }
   });
 
