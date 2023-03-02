@@ -193,6 +193,7 @@ const Scanner = () => {
         if (document.visibilityState === "visible") {
           getCameraId();
           // stopScan();
+          console.log("cameraId", cameraId);
           startScan(cameraId);
         } else if (document.visibilityState === "hidden") {
           stopScan();
