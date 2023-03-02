@@ -185,16 +185,16 @@ const Scanner = () => {
     },
   ];
 
-  const getCameraId = () => {
+  const getCameraId = (tabChange) => {
     Html5Qrcode.getCameras()
       .then((devices) => {
         if (devices && devices.length) {
           console.log("devices", devices);
           let devicesCpy = [...devices];
           console.log("devicesCpy", devicesCpy);
-          let deviceCameraId = devicesCpy.pop().id;
-          console.log("devicesCpy", devices[1].id);
-          cameraIdValue(devices[1].id);
+          let deviceCamera = devicesCpy.pop();
+          console.log("deviceCameraId", deviceCamera);
+          cameraIdValue(deviceCamera.id, tabChange);
         }
       })
       .catch((err) => {
@@ -203,8 +203,9 @@ const Scanner = () => {
       });
   };
 
-  const cameraIdValue = (deviceCameraId) => {
+  const cameraIdValue = (deviceCameraId, tabChange) => {
     setCameraId(deviceCameraId);
+    if (tabChange) startScan(cameraId);
   };
 
   useEffect(() => {
@@ -215,8 +216,7 @@ const Scanner = () => {
         if (document.visibilityState === "visible") {
           getCameraId();
           // stopScan();
-          console.log("cameraId", cameraId);
-          startScan(cameraId);
+          console.log("cameraId Dikkat h", cameraId);
         } else if (document.visibilityState === "hidden") {
           stopScan();
         }
