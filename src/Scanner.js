@@ -28,6 +28,7 @@ const Scanner = () => {
   const [cameraId, setCameraId] = React.useState();
   const [decodedResult, setDecodedResult] = React.useState([]);
   const [scannedArr, setScannedArr] = React.useState([]);
+  const [tabChange, setTabChange] = React.useState(false);
   console.log("Scanner Deployed...");
   const arrayCode = [
     {
@@ -205,34 +206,36 @@ const Scanner = () => {
 
   const cameraIdValue = (deviceCameraId, tabChange) => {
     setCameraId(deviceCameraId);
-    if (tabChange) {
-      const qrCodeSuccessCallback = (decodedText, decodedResult) => {
-        console.log(decodedText);
-        console.log(decodedResult);
-        //checkSnExists(decodedText);
-        pushInArr(decodedText);
-        /* setDecodedResult((prev) => {
-                      if (prev?.result?.text !== decodedResult?.result?.text)
-                          return [prev, decodedResult];
-                      //return [prev, decodedResult];
-                  }); */
-      };
 
-      html5QrCode.start(
-        { deviceId: { exact: cameraId } },
-        brConfig,
-        qrCodeSuccessCallback
-      );
-    }
+    // if (tabChange) {
+    //   const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+    //     console.log(decodedText);
+    //     console.log(decodedResult);
+    //     //checkSnExists(decodedText);
+    //     pushInArr(decodedText);
+    //     /* setDecodedResult((prev) => {
+    //                   if (prev?.result?.text !== decodedResult?.result?.text)
+    //                       return [prev, decodedResult];
+    //                   //return [prev, decodedResult];
+    //               }); */
+    //   };
+
+    //   html5QrCode.start(
+    //     { deviceId: { exact: cameraId } },
+    //     brConfig,
+    //     qrCodeSuccessCallback
+    //   );
+    // }
   };
 
   useEffect(() => {
     document.addEventListener(
       "visibilitychange",
       function (ev) {
-        console.log(`Tab state : ${document.visibilityState}`);
+        console.log(`Tab state1 : ${document.visibilityState}`);
         if (document.visibilityState === "visible") {
-          getCameraId(true);
+          getCameraId();
+          setTabChange(true);
           // stopScan();
           console.log("cameraId Dikkat h", cameraId);
         } else if (document.visibilityState === "hidden") {
@@ -261,13 +264,13 @@ const Scanner = () => {
   React.useEffect(() => {
     getCameraId();
     html5QrCode = new Html5Qrcode("reader");
-  }, []);
+  }, [tabChange]);
 
   React.useEffect(() => {
     if (cameraId) {
       startScan(cameraId);
     }
-  }, [cameraId]);
+  }, [cameraId, tabChange]);
 
   const checkSnExists = (checkSnExists) => {
     let result = String(checkSnExists);
