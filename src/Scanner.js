@@ -205,7 +205,25 @@ const Scanner = () => {
 
   const cameraIdValue = (deviceCameraId, tabChange) => {
     setCameraId(deviceCameraId);
-    if (tabChange) startScan(cameraId);
+    if (tabChange) {
+      const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+        console.log(decodedText);
+        console.log(decodedResult);
+        //checkSnExists(decodedText);
+        pushInArr(decodedText);
+        /* setDecodedResult((prev) => {
+                      if (prev?.result?.text !== decodedResult?.result?.text)
+                          return [prev, decodedResult];
+                      //return [prev, decodedResult];
+                  }); */
+      };
+
+      html5QrCode.start(
+        { deviceId: { exact: cameraId } },
+        brConfig,
+        qrCodeSuccessCallback
+      );
+    }
   };
 
   useEffect(() => {
