@@ -214,7 +214,7 @@ const Scanner = () => {
       function (ev) {
         console.log(`Tab state : ${document.visibilityState}`);
         if (document.visibilityState === "visible") {
-          getCameraId();
+          getCameraId(true);
           // stopScan();
           console.log("cameraId Dikkat h", cameraId);
         } else if (document.visibilityState === "hidden") {
