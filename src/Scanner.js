@@ -186,24 +186,28 @@ const Scanner = () => {
   ];
 
   useEffect(() => {
-    document.addEventListener("visibilitychange", function (ev) {
-      console.log(`Tab state : ${document.visibilityState}`);
-      if (document.visibilityState === "visible") {
-        console.log("hi", html5QrCode);
-        stopScan();
-        startScan(cameraId);
-      } else if (document.visibilityState === "hidden") {
-        console.log("second", html5QrCode);
-        html5QrCode
-          .stop()
-          .then((res) => {
-            //   html5QrCode.clear();
-          })
-          .catch((err) => {
-            console.log(err.message);
-          });
-      }
-    });
+    document.addEventListener(
+      "visibilitychange",
+      function (ev) {
+        console.log(`Tab state : ${document.visibilityState}`);
+        if (document.visibilityState === "visible") {
+          console.log("hi", html5QrCode);
+          // stopScan();
+          startScan(cameraId);
+        } else if (document.visibilityState === "hidden") {
+          console.log("second", html5QrCode);
+          html5QrCode
+            .stop()
+            .then((res) => {
+              //   html5QrCode.clear();
+            })
+            .catch((err) => {
+              console.log(err.message);
+            });
+        }
+      },
+      false
+    );
   }, []);
 
   //Scanning will be stopped if app loses its focus - have to refactor this code ||Rishav
