@@ -228,7 +228,7 @@ const Scanner = () => {
           console.log("devices", devices);
           let devicesCpy = [...devices];
           console.log("devicesCpy", devicesCpy);
-          let deviceCameraId = devicesCpy.pop().id;
+          let deviceCameraId = devices.pop().id;
           console.log("deviceCameraId", deviceCameraId);
           cameraIdValue(deviceCameraId);
         }
