@@ -228,23 +228,23 @@ const Scanner = () => {
     // }
   };
 
-  useEffect(() => {
-    document.addEventListener(
-      "visibilitychange",
-      function (ev) {
-        console.log(`Tab state1 : ${document.visibilityState}`);
-        if (document.visibilityState === "visible") {
-          getCameraId();
-          setTabChange(true);
-          // stopScan();
-          console.log("cameraId Dikkat h", cameraId);
-        } else if (document.visibilityState === "hidden") {
-          stopScan();
-        }
-      },
-      true
-    );
-  }, []);
+  //   useEffect(() => {
+  document.addEventListener(
+    "visibilitychange",
+    function (ev) {
+      console.log(`Tab state1 : ${document.visibilityState}`);
+      if (document.visibilityState === "visible") {
+        getCameraId();
+        setTabChange(true);
+        // stopScan();
+        console.log("cameraId Dikkat h", cameraId);
+      } else if (document.visibilityState === "hidden") {
+        stopScan();
+      }
+    },
+    true
+  );
+  //   }, []);
 
   //Scanning will be stopped if app loses its focus - have to refactor this code ||Rishav
   //   window.addEventListener(
