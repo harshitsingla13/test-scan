@@ -188,7 +188,8 @@ const Scanner = () => {
   document.addEventListener("visibilitychange", function (ev) {
     console.log(`Tab state : ${document.visibilityState}`);
     if (document.visibilityState === "visible") {
-      console.log("hi");
+      console.log("hi", html5QrCode);
+      stopScan();
       startScan(cameraId);
     } else if (document.visibilityState === "hidden") {
       console.log("second", html5QrCode);
