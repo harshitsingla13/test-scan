@@ -292,6 +292,7 @@ const Scanner = () => {
   }, []);
 
   React.useEffect(() => {
+    console.log("Tab", tabChange);
     if (cameraId && tabChange) {
       console.log("Camera Id", cameraId);
       startScan(cameraId);
@@ -301,6 +302,13 @@ const Scanner = () => {
       startScan(cameraId);
     }
   }, [cameraId, tabChange]);
+
+  React.useEffect(() => {
+    if (cameraId) {
+      console.log("Camera Id Tab Change", cameraId);
+      startScan(cameraId);
+    }
+  }, []);
 
   const checkSnExists = (checkSnExists) => {
     let result = String(checkSnExists);
