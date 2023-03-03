@@ -186,7 +186,7 @@ const Scanner = () => {
     },
   ];
 
-  const getCameraId = (tabChange) => {
+  const getCameraId = () => {
     Html5Qrcode.getCameras()
       .then((devices) => {
         if (devices && devices.length) {
@@ -195,7 +195,7 @@ const Scanner = () => {
           console.log("devicesCpy", devicesCpy);
           let deviceCamera = devicesCpy.pop();
           console.log("deviceCameraId", deviceCamera);
-          cameraIdValue(deviceCamera.id, tabChange);
+          cameraIdValue(deviceCamera.id);
         }
       })
       .catch((err) => {
@@ -228,13 +228,32 @@ const Scanner = () => {
     // }
   };
 
+  const startScan = React.useCallback((cameraId) => {
+    const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+      console.log(decodedText);
+      console.log(decodedResult);
+      //checkSnExists(decodedText);
+      pushInArr(decodedText);
+      /* setDecodedResult((prev) => {
+                if (prev?.result?.text !== decodedResult?.result?.text)
+                    return [prev, decodedResult];
+                //return [prev, decodedResult];
+            }); */
+    };
+
+    html5QrCode.start(
+      { deviceId: { exact: cameraId } },
+      brConfig,
+      qrCodeSuccessCallback
+    );
+  }, []);
+
   useEffect(() => {
     document.addEventListener(
       "visibilitychange",
       function (ev) {
         console.log(`Tab state1 : ${document.visibilityState}`);
         if (document.visibilityState === "visible") {
-          getCameraId();
           setTabChange(true);
           // stopScan();
           console.log("cameraId Dikkat h", cameraId);
@@ -245,6 +264,11 @@ const Scanner = () => {
       },
       true
     );
+    return () => {
+      document.removeEventListener("visibilitychange", function (ev) {
+        console.log("Event Listener removed");
+      });
+    };
   }, []);
 
   //Scanning will be stopped if app loses its focus - have to refactor this code ||Rishav
@@ -265,10 +289,15 @@ const Scanner = () => {
   React.useEffect(() => {
     getCameraId();
     html5QrCode = new Html5Qrcode("reader");
-  }, [tabChange]);
+  }, []);
 
   React.useEffect(() => {
     if (cameraId) {
+      console.log("Camera Id", cameraId);
+      startScan(cameraId);
+    } else if (tabChange) {
+      getCameraId();
+      html5QrCode = new Html5Qrcode("reader");
       startScan(cameraId);
     }
   }, [cameraId, tabChange]);
@@ -287,26 +316,6 @@ const Scanner = () => {
       setScannedArr((prev) => [...prev, decodedText]);
     }
   };
-
-  const startScan = React.useCallback((cameraId) => {
-    const qrCodeSuccessCallback = (decodedText, decodedResult) => {
-      console.log(decodedText);
-      console.log(decodedResult);
-      //checkSnExists(decodedText);
-      pushInArr(decodedText);
-      /* setDecodedResult((prev) => {
-                if (prev?.result?.text !== decodedResult?.result?.text)
-                    return [prev, decodedResult];
-                //return [prev, decodedResult];
-            }); */
-    };
-
-    html5QrCode.start(
-      { deviceId: { exact: cameraId } },
-      brConfig,
-      qrCodeSuccessCallback
-    );
-  }, []);
 
   return (
     <div
