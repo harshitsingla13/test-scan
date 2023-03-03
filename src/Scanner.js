@@ -292,7 +292,7 @@ const Scanner = () => {
   }, []);
 
   React.useEffect(() => {
-    if (cameraId) {
+    if (cameraId && tabChange) {
       console.log("Camera Id", cameraId);
       startScan(cameraId);
     } else if (tabChange) {
