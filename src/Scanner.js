@@ -28,7 +28,7 @@ const Scanner = () => {
   const [cameraId, setCameraId] = React.useState();
   const [decodedResult, setDecodedResult] = React.useState([]);
   const [scannedArr, setScannedArr] = React.useState([]);
-  const [tabChange, setTabChange] = React.useState(false);
+  const [tabChange, setTabChange] = React.useState(true);
   console.log("Scanner Deployed...");
   const arrayCode = [
     {
