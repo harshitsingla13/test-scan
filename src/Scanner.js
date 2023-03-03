@@ -296,19 +296,20 @@ const Scanner = () => {
     if (cameraId && tabChange) {
       console.log("Camera Id", cameraId);
       startScan(cameraId);
-    } else if (tabChange) {
-      getCameraId();
-      html5QrCode = new Html5Qrcode("reader");
-      startScan(cameraId);
     }
+    // } else if (tabChange) {
+    //   getCameraId();
+    //   html5QrCode = new Html5Qrcode("reader");
+    //   startScan(cameraId);
+    // }
   }, [cameraId, tabChange]);
 
-  React.useEffect(() => {
-    if (cameraId) {
-      console.log("Camera Id Tab Change", cameraId);
-      startScan(cameraId);
-    }
-  }, []);
+  //   React.useEffect(() => {
+  //     if (cameraId) {
+  //       console.log("Camera Id Tab Change", cameraId);
+  //       startScan(cameraId);
+  //     }
+  //   }, []);
 
   const checkSnExists = (checkSnExists) => {
     let result = String(checkSnExists);
